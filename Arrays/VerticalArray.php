@@ -2,18 +2,20 @@
 
 namespace Arrays;
 
-class VerticalArray extends BasicArray
+class VerticalArray extends AbstractBasicArray
 {
-    function __construct($n, $m)
+    use ArraySortTrait;
+    use ArrayGenerateTrait;
+
+    function __construct($height, $width)
     {
-        parent::__construct($n, $m);
+        $this->arr = $this->generateArray($height, $width);
     }
 
     public function arraySort()
     {
-        parent::arraySort();
-
-        $this->sortInputArray();
+        $this->sortInputArray($this->arr);
+        $this->name = "Vertical";
 
         $output = $this->arr;
         for($i = 0; $i < count($this->arr); $i++) {

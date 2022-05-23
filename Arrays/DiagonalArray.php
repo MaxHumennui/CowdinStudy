@@ -2,18 +2,20 @@
 
 namespace Arrays;
 
-class DiagonalArray extends BasicArray
+class DiagonalArray extends AbstractBasicArray
 {
-    function __construct($n, $m)
+    use ArraySortTrait;
+    use ArrayGenerateTrait;
+
+    function __construct($height, $width)
     {
-        parent::__construct($n, $m);
+        $this->arr = $this->generateArray($height, $width);
     }
 
     public function arraySort()
     {
-        parent::arraySort();
-
-        $this->sortInputArray();
+        $this->sortInputArray($this->arr);
+        $this->name = "Diagonal";
         $output = $this->arr;
         $cnt = 0;
         $column = 0;

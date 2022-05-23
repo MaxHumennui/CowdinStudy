@@ -4,9 +4,13 @@ require_once __DIR__.'/vendor/autoload.php';
 
 use Arrays\HorizontalArray;
 use Arrays\DiagonalArray;
+use Arrays\SnailArray;
 use Arrays\VerticalArray;
 use Arrays\SnakeArray;
-use Arrays\SnailArray;
+use Arrays\DbWriter;
+use Arrays\PageWriter;
+use Arrays\FileWriter;
+use Arrays\DatabaseGateway;
 
 ?>
 
@@ -26,35 +30,42 @@ use Arrays\SnailArray;
 
 if($_POST["height"] && $_POST["width"]){
     try {
+        $pageWriter = new PageWriter();
+        $fileWriter = new FileWriter();
+        $dbGateway = new DatabaseGateway();
+        $dbWriter = new DbWriter($dbGateway);
+
         $horizontalArr = new HorizontalArray($_POST["height"], $_POST["width"]);
         $horizontalArr->arraySort();
-        $horizontalArr->printArray();
-        $horizontalArr->printArrayInFile();
-        echo "=============================| <br>";
+        $pageWriter->write($horizontalArr->name, $horizontalArr->arr);
+        $fileWriter->write($horizontalArr->name, $horizontalArr->arr);
+        $dbWriter->write($horizontalArr->name, $horizontalArr->arr);
 
         $verticalArr = new VerticalArray($_POST["height"], $_POST["width"]);
         $verticalArr->arraySort();
-        $verticalArr->printArray();
-        $verticalArr->printArrayInFile();
-        echo "=============================| <br>";
+        $pageWriter->write($verticalArr->name, $verticalArr->arr);
+        $fileWriter->write($verticalArr->name, $verticalArr->arr);
+        $dbWriter->write($verticalArr->name, $verticalArr->arr);
 
         $snakeArr = new SnakeArray($_POST["height"], $_POST["width"]);
         $snakeArr->arraySort();
-        $snakeArr->printArray();
-        $snakeArr->printArrayInFile();
-        echo "=============================| <br>";
+        $pageWriter->write($snakeArr->name, $snakeArr->arr);
+        $fileWriter->write($snakeArr->name, $snakeArr->arr);
+        $dbWriter->write($snakeArr->name, $snakeArr->arr);
 
         $diagonalArr = new DiagonalArray($_POST["height"], $_POST["width"]);
         $diagonalArr->arraySort();
-        $diagonalArr->printArray();
-        $diagonalArr->printArrayInFile();
-        echo "=============================| <br>";
+        $pageWriter->write($diagonalArr->name, $diagonalArr->arr);
+        $fileWriter->write($diagonalArr->name, $diagonalArr->arr);
+        $dbWriter->write($diagonalArr->name, $diagonalArr->arr);
 
         $snailArr = new SnailArray($_POST["height"], $_POST["width"]);
         $snailArr->arraySort();
-        $snailArr->printArray();
-        $snailArr->printArrayInFile();
-    }catch (Exception $e){
+        $pageWriter->write($snailArr->name, $snailArr->arr);
+        $fileWriter->write($snailArr->name, $snailArr->arr);
+        $dbWriter->write($snailArr->name, $snailArr->arr);
+
+    } catch (Exception $e){
         echo "Error: " . $e->getMessage() . "\n";
     }
 }

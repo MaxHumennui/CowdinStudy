@@ -2,13 +2,20 @@
 
 namespace Arrays;
 
-class SnailArray extends BasicArray
+class SnailArray extends AbstractBasicArray
 {
+    use ArraySortTrait;
+    use ArrayGenerateTrait;
+
+    function __construct($height, $width)
+    {
+        $this->arr = $this->generateArray($height, $width);
+    }
+
     function arraySort()
     {
-        parent::arraySort();
-
-        $this->sortInputArray();
+        $this->sortInputArray($this->arr);
+        $this->name = "Snail";
         $stepsCount = count($this->arr) + count($this->arr[0]) - 1;
         $c = 0;
         $i = 0;

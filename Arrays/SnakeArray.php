@@ -2,15 +2,20 @@
 
 namespace Arrays;
 
-use mysql_xdevapi\Exception;
-
-class SnakeArray extends BasicArray
+class SnakeArray extends AbstractBasicArray
 {
-    function arraySort()
-    {
-        parent::arraySort();
+    use ArraySortTrait;
+    use ArrayGenerateTrait;
 
-        $this->sortInputArray();
+    function __construct($height, $width)
+    {
+        $this->arr = $this->generateArray($height, $width);
+    }
+
+    public function arraySort()
+    {
+        $this->sortInputArray($this->arr);
+        $this->name = "Snake";
         $output = $this->arr;
         $cnt = 0;
         $incr = 1;
