@@ -1,16 +1,13 @@
 <?php
 
-require_once __DIR__.'/vendor/autoload.php';
+require_once __DIR__ . '/vendor/autoload.php';
 
-use Arrays\HorizontalArray;
-use Arrays\DiagonalArray;
-use Arrays\SnailArray;
-use Arrays\VerticalArray;
-use Arrays\SnakeArray;
-use Arrays\DbWriter;
-use Arrays\PageWriter;
-use Arrays\FileWriter;
 use Arrays\DatabaseGateway;
+use Arrays\Sorters\ArraySorterFactory;
+use Arrays\Sorters\ArrayTypes;
+use Arrays\Writers\DbWriter;
+use Arrays\Writers\FileWriter;
+use Arrays\Writers\PageWriter;
 
 ?>
 
@@ -30,40 +27,41 @@ use Arrays\DatabaseGateway;
 
 if($_POST["height"] && $_POST["width"]){
     try {
+        $arraysFactory = new ArraySorterFactory();
         $pageWriter = new PageWriter();
         $fileWriter = new FileWriter();
         $dbGateway = new DatabaseGateway();
         $dbWriter = new DbWriter($dbGateway);
 
-        $horizontalArr = new HorizontalArray($_POST["height"], $_POST["width"]);
+        $horizontalArr = $arraysFactory->getSorter($_POST["height"], $_POST["width"], ArrayTypes::HORIZONTAL->name);
         $horizontalArr->arraySort();
-        $pageWriter->write($horizontalArr->name, $horizontalArr->arr);
-        $fileWriter->write($horizontalArr->name, $horizontalArr->arr);
-        $dbWriter->write($horizontalArr->name, $horizontalArr->arr);
+        $pageWriter->write($horizontalArr->name, $horizontalArr->array);
+        $fileWriter->write($horizontalArr->name, $horizontalArr->array);
+        $dbWriter->write($horizontalArr->name, $horizontalArr->array);
 
-        $verticalArr = new VerticalArray($_POST["height"], $_POST["width"]);
+        $verticalArr = $arraysFactory->getSorter($_POST["height"], $_POST["width"], ArrayTypes::VERTICAL->name);
         $verticalArr->arraySort();
-        $pageWriter->write($verticalArr->name, $verticalArr->arr);
-        $fileWriter->write($verticalArr->name, $verticalArr->arr);
-        $dbWriter->write($verticalArr->name, $verticalArr->arr);
+        $pageWriter->write($verticalArr->name, $verticalArr->array);
+        $fileWriter->write($verticalArr->name, $verticalArr->array);
+        $dbWriter->write($verticalArr->name, $verticalArr->array);
 
-        $snakeArr = new SnakeArray($_POST["height"], $_POST["width"]);
+        $snakeArr = $arraysFactory->getSorter($_POST["height"], $_POST["width"], ArrayTypes::SNAKE->name);
         $snakeArr->arraySort();
-        $pageWriter->write($snakeArr->name, $snakeArr->arr);
-        $fileWriter->write($snakeArr->name, $snakeArr->arr);
-        $dbWriter->write($snakeArr->name, $snakeArr->arr);
+        $pageWriter->write($snakeArr->name, $snakeArr->array);
+        $fileWriter->write($snakeArr->name, $snakeArr->array);
+        $dbWriter->write($snakeArr->name, $snakeArr->array);
 
-        $diagonalArr = new DiagonalArray($_POST["height"], $_POST["width"]);
+        $diagonalArr = $arraysFactory->getSorter($_POST["height"], $_POST["width"], ArrayTypes::DIAGONAL->name);
         $diagonalArr->arraySort();
-        $pageWriter->write($diagonalArr->name, $diagonalArr->arr);
-        $fileWriter->write($diagonalArr->name, $diagonalArr->arr);
-        $dbWriter->write($diagonalArr->name, $diagonalArr->arr);
+        $pageWriter->write($diagonalArr->name, $diagonalArr->array);
+        $fileWriter->write($diagonalArr->name, $diagonalArr->array);
+        $dbWriter->write($diagonalArr->name, $diagonalArr->array);
 
-        $snailArr = new SnailArray($_POST["height"], $_POST["width"]);
+        $snailArr = $arraysFactory->getSorter($_POST["height"], $_POST["width"], ArrayTypes::SNAIL->name);
         $snailArr->arraySort();
-        $pageWriter->write($snailArr->name, $snailArr->arr);
-        $fileWriter->write($snailArr->name, $snailArr->arr);
-        $dbWriter->write($snailArr->name, $snailArr->arr);
+        $pageWriter->write($snailArr->name, $snailArr->array);
+        $fileWriter->write($snailArr->name, $snailArr->array);
+        $dbWriter->write($snailArr->name, $snailArr->array);
 
     } catch (Exception $e){
         echo "Error: " . $e->getMessage() . "\n";

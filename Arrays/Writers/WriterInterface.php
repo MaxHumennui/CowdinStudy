@@ -1,6 +1,6 @@
 <?php
 
-namespace Arrays;
+namespace Arrays\Writers;
 
 interface WriterInterface
 {

@@ -1,6 +1,8 @@
 <?php
 
-namespace Arrays;
+namespace Arrays\Writers;
+
+use Arrays\DatabaseGateway;
 
 class DbWriter implements WriterInterface
 {
@@ -16,7 +18,8 @@ class DbWriter implements WriterInterface
     public function write($name, $array)
     {
         $jsonArray = json_encode($array);
-        $this->conn->exec("INSERT INTO 'arrays' VALUES (" . $name . ", " . $jsonArray . ")");
+        $sql = "INSERT INTO `arrays`(`name`, `array`) VALUES ('" . $name . "', '" . $jsonArray . "')";
+        $this->conn->exec($sql);
     }
 
     function __destruct()

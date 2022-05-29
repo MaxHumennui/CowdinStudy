@@ -1,42 +1,32 @@
 <?php
 
-namespace Arrays;
+namespace Arrays\Sorters;
 
 class SnailArray extends AbstractBasicArray
 {
-    use ArraySortTrait;
-    use ArrayGenerateTrait;
-
-    function __construct($height, $width)
-    {
-        $this->arr = $this->generateArray($height, $width);
-    }
-
     function arraySort()
     {
-        $this->sortInputArray($this->arr);
         $this->name = "Snail";
-        $stepsCount = count($this->arr) + count($this->arr[0]) - 1;
+        $stepsCount = count($this->array) + count($this->array[0]) - 1;
         $c = 0;
-        $i = 0;
-        $j = 0;
+        $index = 0;
         $sortedI = 0;
         $sortedJ = 0;
-        $step = count($this->arr[0]) - 1;
-        $output = $this->arr;
+        $step = count($this->array[0]) - 1;
+        $output = $this->array;
         $incrementI = 0;
         $incrementJ = 1;
 
+        $sortedArray = $this->array;
+        $sortedArray = array_reduce($sortedArray, "array_merge", []);
+        sort($sortedArray);
+
         while ($c < $stepsCount){
             for($s = 0; $s < $step; $s++){
-                $output[$sortedI][$sortedJ] = $this->arr[$i][$j];
+                $output[$sortedI][$sortedJ] = $sortedArray[$index];
                 $sortedI += $incrementI;
                 $sortedJ += $incrementJ;
-                $j++;
-                if($j == count($this->arr[0])){
-                    $j = 0;
-                    $i++;
-                }
+                $index++;
             }
             list($incrementI, $incrementJ) = [$incrementJ, $incrementI];
             $c++;
@@ -53,7 +43,7 @@ class SnailArray extends AbstractBasicArray
                 $step--;
             }
         }
-        $output[ceil((count($this->arr) - 1) / 2)][ceil((count($this->arr[0]) - 1) / 2)] = $this->arr[count($this->arr) - 1][count($this->arr[0]) - 1];
-        $this->arr = $output;
+        $output[ceil((count($this->array) - 1) / 2)][ceil((count($this->array[0]) - 1) / 2)] = $sortedArray[count($sortedArray) - 1];
+        $this->array = $output;
     }
 }

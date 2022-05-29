@@ -1,6 +1,6 @@
 <?php
 
-namespace Arrays;
+namespace Arrays\Writers;
 
 use Exception;
 
@@ -8,7 +8,7 @@ class FileWriter implements WriterInterface
 {
     public function write($name, $array)
     {
-        if(! file_exists(__DIR__."/../output/")){
+        if(! file_exists(__DIR__."/../../output/")){
             throw new Exception("Output directory does not exist.");
         }
 
@@ -19,7 +19,7 @@ class FileWriter implements WriterInterface
             }
             $arrayString .= "\n";
         }
-        $filename = __DIR__."/../output/" . $name . ".txt";
+        $filename = __DIR__ . "/../output/" . $name . ".txt";
         $fileContent = "\n" . $name . ":\n" . "$arrayString";
         file_put_contents($filename, $fileContent, LOCK_EX);
     }
