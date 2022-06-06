@@ -2,11 +2,11 @@
 
 namespace Arrays\Sorters;
 
-enum ArrayTypes
+enum ArrayTypes: string
 {
-    case DIAGONAL;
-    case HORIZONTAL;
-    case SNAIL;
-    case SNAKE;
-    case VERTICAL;
+    case DIAGONAL = "diagonal";
+    case HORIZONTAL = "horizontal";
+    case SNAIL = "snail";
+    case SNAKE = "snake";
+    case VERTICAL = "vertical";
 }

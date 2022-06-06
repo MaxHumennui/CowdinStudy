@@ -20,7 +20,7 @@ class FileWriter implements WriterInterface
             $arrayString .= "\n";
         }
         $filename = __DIR__ . "/../output/" . $name . ".txt";
-        $fileContent = "\n" . $name . ":\n" . "$arrayString";
+        $fileContent = $name . ":\n" . "$arrayString";
         file_put_contents($filename, $fileContent, LOCK_EX);
     }
 }

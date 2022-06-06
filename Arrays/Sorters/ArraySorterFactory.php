@@ -7,15 +7,15 @@ class ArraySorterFactory
     public function getSorter($height, $width, $arrayType): AbstractBasicArray
     {
         switch($arrayType){
-            case "DIAGONAL":
+            case "diagonal":
                 return new DiagonalArray($height, $width);
-            case "HORIZONTAL":
+            case "horizontal":
                 return new HorizontalArray($height, $width);
-            case "SNAIL":
+            case "snail":
                 return new SnailArray($height, $width);
-            case "SNAKE":
+            case "snake":
                 return new SnakeArray($height, $width);
-            case "VERTICAL":
+            case "vertical":
                 return new VerticalArray($height, $width);
         }
 

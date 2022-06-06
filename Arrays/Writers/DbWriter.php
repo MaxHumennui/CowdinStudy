@@ -12,7 +12,7 @@ class DbWriter implements WriterInterface
         $this->conn = $dbGateway->openConnection();
     }
 
-    private $dbGateway;
+    private DatabaseGateway $dbGateway;
     private $conn;
 
     public function write($name, $array)

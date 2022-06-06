@@ -6,13 +6,14 @@ class PageWriter implements WriterInterface
 {
     public function write($name, $array)
     {
-        echo $name . ": <br>";
+        $arrayString = "";
         for($i = 0; $i < count($array); $i++) {
             for($j = 0; $j < count($array[$i]); $j++) {
-                echo $array[$i][$j] . " ";
+                $arrayString .= $array[$i][$j] . " ";
             }
-            echo "<br>";
+            $arrayString .= "\n";
         }
-        echo "<br>";
+
+        echo json_encode($array);
     }
 }
