@@ -10,8 +10,8 @@ use Arrays\Writers\DbWriter;
 use Arrays\Writers\FileWriter;
 use Arrays\Writers\PageWriter;
 
-$request = json_decode($_POST["request"], true);
 $arraysFactory = new ArraySorterFactory();
+$request = json_decode($_POST["request"], true);
 
 if($request["actionType"] == "pageWrite"){
     $pageWriter = new PageWriter();
@@ -23,9 +23,7 @@ if($request["actionType"] == "pageWrite"){
     } catch (Exception $e) {
         echo "Error: " . $e->getMessage() . "\n";
     }
-}
-
-if($request["actionType"] == "downloadFile"){
+}elseif($request["actionType"] == "downloadFile"){
     $fileWriter = new FileWriter();
 
     try {
@@ -37,9 +35,7 @@ if($request["actionType"] == "downloadFile"){
     } catch (Exception $e) {
         echo "Error: " . $e->getMessage() . "\n";
     }
-}
-
-if($request["actionType"] == "writeDB"){
+}elseif($request["actionType"] == "writeDB"){
     $dbGateway = new DatabaseGateway();
     $dbWriter = new DbWriter($dbGateway);
 
@@ -47,9 +43,10 @@ if($request["actionType"] == "writeDB"){
         $array = $arraysFactory->getSorter($request["height"], $request["width"], $request["arrayType"]);
         $array->arraySort();
         $dbWriter->write($array->name, $array->array);
-        echo "Success!";
     } catch (Exception $e) {
         echo "Error: " . $e->getMessage() . "\n";
     }
+}else{
+    echo "Action type not found";
 }
 

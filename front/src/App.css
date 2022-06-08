@@ -61,7 +61,7 @@ select{
   margin: 5px;
 }
 
-.button-28 {
+.button {
   appearance: none;
   background-color: transparent;
   border: 2px solid #1A1A1A;
@@ -74,7 +74,9 @@ select{
   font-size: 14px;
   font-weight: 600;
   line-height: normal;
-  margin: 1px;
+  margin-left: 1px;
+  margin-right: 1px;
+  margin-top: 1%;
   min-height: 30px;
   min-width: 30px;
   outline: none;
@@ -89,18 +91,18 @@ select{
   will-change: transform;
 }
 
-.button-28:disabled {
+.button:disabled {
   pointer-events: none;
 }
 
-.button-28:hover {
+.button:hover {
   color: #fff;
   background-color: #1A1A1A;
   box-shadow: rgba(0, 0, 0, 0.25) 0 8px 15px;
   transform: translateY(-2px);
 }
 
-.button-28:active {
+.button:active {
   box-shadow: none;
   transform: translateY(0);
 }
